@@ -2,7 +2,7 @@
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " air line
@@ -12,10 +12,11 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'       " add beautiful icons besides files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " enhance devicons
 Plug 'preservim/nerdcommenter'
+Plug 'leafgarland/typescript-vim'
 "wmate Initialize plugin system
 call plug#end()
 "======= keymap start =======
-let mapleader="\\"
+let mapleader=","
 map <C-n> :NERDTreeToggle<CR>
 map <leader>v "+gp
 map <leader>c "+y
@@ -94,7 +95,24 @@ set undofile
 set wildmenu
 set wildmode=longest:list,full
 "======== vim setting end ======
+"======= coc setting start =======
+function! SetupCommandAbbrs(from, to)
+      exec 'cnoreabbrev <expr> '.a:from
+              \ .' ((getcmdtype() ==# ":" && getcmdline() ==# "'.a:from.'")'
+              \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+endfunction
+call SetupCommandAbbrs('C', 'CocConfig')
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+   let col = col('.') - 1
+     return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
+inoremap <silent><expr> <Tab>
+           \ pumvisible() ? "\<C-n>" :
+           \ <SID>check_back_space() ? "\<Tab>" :
+           \ coc#refresh()
+"======= coc setting end======= 
 :let g:airline_theme='murmur'
 :let g:airline#extensions#tabline#enabled = 1
 :let g:airline_symbols_ascii = 1
