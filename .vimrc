@@ -14,6 +14,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " enhance devicons
 Plug 'preservim/nerdcommenter'
 Plug 'leafgarland/typescript-vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'christoomey/vim-tmux-navigator'
 "wmate Initialize plugin system
 call plug#end()
 "======= keymap start =======
@@ -25,6 +26,10 @@ imap <C-e> <END>
 imap <C-a> <HOME>
 imap <C-f> <Right>
 imap <C-b> <Left>
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
 "======= keymap end =======
 
 "======= nerdTree settting start ======
@@ -58,7 +63,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 "let g:ctrlp_cmd = 'exe "CtrlP".get(["Buffer", "", "MRU"], v:count)'
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(exe|so|dll|Ds_Store|meta|png)$',
+	\ 'file': '\v\.(exe|so|dll|Ds_Store|meta|png|jpg|fbx)$',
 	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 	\ }
 "function! IsNERDTreeOpen()
@@ -74,6 +79,8 @@ let g:ctrlp_custom_ignore = {
 "======== ctrlp setting end ====== 
 "======== vim setting start ========
 colorscheme default
+set backspace=indent,eol,start
+set t_Co=256
 set autoindent
 set tabstop=4
 " 按下tab的时候，vim缩进的空格数量
@@ -251,6 +258,15 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "======= coc setting end======= 
+"======= tmux setting start=======
+"let g:tmux_navigator_no_mappings = 1
+:let g:tmux_navigator_save_on_switch = 1
+nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
+nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
+nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
+nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
+nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+"======= tmux setting end=======
 :let g:airline_theme='murmur'
 :let g:airline#extensions#tabline#enabled = 1
 :let g:airline_symbols_ascii = 1
