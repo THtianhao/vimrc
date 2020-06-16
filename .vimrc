@@ -63,7 +63,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 "let g:ctrlp_cmd = 'exe "CtrlP".get(["Buffer", "", "MRU"], v:count)'
 let g:ctrlp_custom_ignore = {
 	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(exe|so|dll|Ds_Store|meta|png|jpg|fbx)$',
+	\ 'file': '\v\.(exe|so|dll|Ds_Store|meta|png|jpg|fbx|prefab)$',
 	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 	\ }
 "function! IsNERDTreeOpen()
@@ -79,6 +79,7 @@ let g:ctrlp_custom_ignore = {
 "======== ctrlp setting end ====== 
 "======== vim setting start ========
 colorscheme default
+"在插入模式下可以删除回车和之前输入的字符
 set backspace=indent,eol,start
 set t_Co=256
 set autoindent
