@@ -3,21 +3,21 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" On-demand loading
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-" air line
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'       " add beautiful icons besides files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " enhance devicons
-Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdcommenter' " comment plugin
 Plug 'leafgarland/typescript-vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion' " leader leader w
+Plug 'christoomey/vim-tmux-navigator' " ctrl-hjkl move between splites
+Plug 'dense-analysis/ale' " grammer error detach
+Plug 'Chiel92/vim-autoformat' " save and format file
 "wmate Initialize plugin system
 call plug#end()
-"======= keymap start =======
+"======= keymap start =================================================
 let mapleader=","
 map <C-n> :NERDTreeToggle<CR>
 map <leader>v "+gp
@@ -30,54 +30,9 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
-"======= keymap end =======
+"======= keymap end ===================================================
 
-"======= nerdTree settting start ======
-:let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
-:let g:NERDTreeShowBookmarks=1
-:let g:NERDTreeShowIgnoredStatus = 1
-" 不显示隐藏文件
-:let g:NERDTreeHidden=0
-" 过滤: 所有指定文件和文件夹不显示
-:let NERDTreeIgnore = ['\.pyc$', '\.swp', '\.swo', '\.vscode', '__pycache__']
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"======== nerdtree setting end  ======
-"======== ctrlp setting start ======
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.meta,*.png
-":let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-":let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|DS_Store|meta)$'
-:let g:ctrlp_by_filename = 1
-" 默认打开缓冲区
-"let g:ctrlp_cmd = 'exe "CtrlP".get(["Buffer", "", "MRU"], v:count)'
-let g:ctrlp_custom_ignore = {
-	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-	\ 'file': '\v\.(exe|so|dll|Ds_Store|meta|png|jpg|fbx|prefab)$',
-	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-	\ }
-"function! IsNERDTreeOpen()
-    "return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-"endfunction
-"function! SyncTree()
-    "if &modifiable && ISNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-        "NERDTreeFind
-        "wincmd p
-    "endif
-"endfunction
-"autocmd BufEnter * call SyncTree()
-"======== ctrlp setting end ====== 
-"======== vim setting start ========
+"======== vim setting start ===========================================
 colorscheme default
 "在插入模式下可以删除回车和之前输入的字符
 set backspace=indent,eol,start
@@ -101,15 +56,63 @@ set incsearch
 " 搜索的时候忽略大小写
 set ignorecase
 " 退出之后还可以用u来撤销信息
-set undofile
+"set undofile
 "set backupdir=~/.vim/.backup//
 "set undodir=~/.vim/.undo//
 " 搜索的时候进行Tab进行提示
 set wildmenu
 set wildmode=longest:list,full
-"======== vim setting end ======
-"======= coc setting start =======
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-emmet', 'coc-tslint', 'coc-prettier', 'coc-pairs','coc-snippets']
+"======== vim setting end ============================================
+
+"======= nerdTree settting start =====================================
+:let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+:let g:NERDTreeShowBookmarks=1
+:let g:NERDTreeShowIgnoredStatus = 1
+" 不显示隐藏文件
+:let g:NERDTreeHidden=0
+" 过滤: 所有指定文件和文件夹不显示
+:let NERDTreeIgnore = ['\.pyc$', '\.swp', '\.swo', '\.vscode', '__pycache__']
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"======== nerdtree setting end  ==========================================
+
+"======== ctrlp setting start ============================================
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.meta,*.png
+":let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+":let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|DS_Store|meta)$'
+:let g:ctrlp_by_filename = 1
+" 默认打开缓冲区
+"let g:ctrlp_cmd = 'exe "CtrlP".get(["Buffer", "", "MRU"], v:count)'
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	\ 'file': '\v\.(exe|so|dll|Ds_Store|meta|png|jpg|fbx|prefab)$',
+	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+	\ }
+"function! IsNERDTreeOpen()
+    "return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
+"endfunction
+"function! SyncTree()
+    "if &modifiable && ISNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
+        "NERDTreeFind
+        "wincmd p
+    "endif
+"endfunction
+"autocmd BufEnter * call SyncTree()
+"======== ctrlp setting end ==============================================
+
+"======= coc setting start ===============================================
+let g:coc_global_extensions = ['coc-clangd','coc-yaml','coc-omnisharp','coc-java','coc-json', 'coc-tsserver', 'coc-emmet', 'coc-tslint', 'coc-prettier', 'coc-pairs','coc-snippets']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -162,9 +165,8 @@ else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" Use `F2` and `F3` to navigate diagnostics
+nmap <silent> <F3> <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -183,8 +185,7 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" Highlight the symbol and its references when holding the cursor.  autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -192,7 +193,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -258,8 +259,10 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-"======= coc setting end======= 
-"======= tmux setting start=======
+"======= coc setting end============================================
+
+"======= tmux setting start=========================================
+:let g:mode_mouse_on = 1
 "let g:tmux_navigator_no_mappings = 1
 :let g:tmux_navigator_save_on_switch = 1
 nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
@@ -267,7 +270,16 @@ nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
 nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
 nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
 nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
-"======= tmux setting end=======
+"======= tmux setting end===========================================
+
+
+"======= airline setting start======================================
 :let g:airline_theme='murmur'
 :let g:airline#extensions#tabline#enabled = 1
 :let g:airline_symbols_ascii = 1
+"======= airline setting end========================================
+
+"================== autoformat start ===============================
+noremap <F4> :Autoformat<CR>
+"================== autoformat end =================================
+
