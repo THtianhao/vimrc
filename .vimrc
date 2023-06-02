@@ -112,7 +112,17 @@ let g:ctrlp_custom_ignore = {
 "======== ctrlp setting end ==============================================
 
 "======= coc setting start ===============================================
-let g:coc_global_extensions = ['coc-clangd','coc-yaml','coc-omnisharp','coc-java','coc-json', 'coc-tsserver', 'coc-emmet', 'coc-tslint', 'coc-prettier', 'coc-pairs','coc-snippets']
+let g:coc_global_extensions = [
+            \'coc-clangd',
+            \'coc-yaml',
+            \'coc-json',
+            \'coc-tsserver',
+            \'coc-emmet',
+            \'coc-tslint',
+            \'coc-prettier',
+            \'coc-pairs',
+            \'coc-snippets']
+
 " TextEdit might fail if hidden is not set.
 set hidden
 
