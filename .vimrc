@@ -1,4 +1,5 @@
-call plug#begin()
+
+call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -7,12 +8,13 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'       " add beautiful icons besides files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " enhance devicons
 Plug 'preservim/nerdcommenter' " comment plugin
-Plug 'leafgarland/typescript-vim'
 Plug 'easymotion/vim-easymotion' " leader leader w
 Plug 'christoomey/vim-tmux-navigator' " ctrl-hjkl move between splites
 Plug 'dense-analysis/ale' " grammer error detach
 Plug 'Chiel92/vim-autoformat' " save and format file
+Plug 'puremourning/vimspector'
 call plug#end()
+
 "======= keymap start =================================================
 let mapleader=","
 map <C-n> :NERDTreeToggle<CR>
@@ -27,7 +29,6 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 "======= keymap end ===================================================
-
 "======== vim setting start ===========================================
 colorscheme default
 "在插入模式下可以删除回车和之前输入的字符
@@ -39,8 +40,8 @@ set tabstop=4
 set shiftwidth=4
 " tab转化为空格
 set expandtab
-set number
-set relativenumber
+"set number
+"set relativenumber
 " 设置折行
 set wrap
 " 只有遇到字符的时候才折行，单词不折行
@@ -62,21 +63,21 @@ set wildmode=longest:list,full
 
 "======= nerdTree settting start =====================================
 :let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
+   \ "Modified"  : "✹",
+   \ "Staged"    : "✚",
+   \ "Untracked" : "✭",
+   \ "Renamed"   : "➜",
+   \ "Unmerged"  : "═",
+   \ "Deleted"   : "✖",
+   \ "Dirty"     : "✗",
+   \ "Clean"     : "✔︎",
+   \ 'Ignored'   : '☒',
+   \ "Unknown"   : "?"
+   \ }
 :let g:NERDTreeShowBookmarks=1
 :let g:NERDTreeShowIgnoredStatus = 1
 " 不显示隐藏文件
-:let g:NERDTreeHidden=0
+let g:NERDTreeHidden=1
 " 过滤: 所有指定文件和文件夹不显示
 :let NERDTreeIgnore = ['\.pyc$', '\.swp', '\.swo', '\.vscode', '__pycache__']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -93,22 +94,22 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+ \ 'dir':  '\v(venv\/.*)|[\/]\.(git|hg|svn|venv)$',
+ \ 'file': '\v\.(exe|so|dll)$',
+ \ 'link': 'some_bad_symbolic_links',
+ \ }
 
 "======== ctrlp setting end ============================================
 
 
 "======== coc setting start ==========================================
 let g:coc_global_extensions = [
-            \'coc-pyright',
-            \'coc-yaml',
-            \'coc-json',
-            \'coc-prettier',
-            \'coc-pairs',
-            \'coc-snippets']
+           \'coc-pyright',
+           \'coc-yaml',
+           \'coc-json',
+           \'coc-prettier',
+           \'coc-pairs',
+           \'coc-snippets']
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence
@@ -123,7 +124,7 @@ set updatetime=300
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved
-set signcolumn=yes
+"set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -131,26 +132,26 @@ set signcolumn=yes
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config
 inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
+     \ coc#pum#visible() ? coc#pum#next(1) :
+     \ CheckBackspace() ? "\<Tab>" :
+     \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+                             "\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+ let col = col('.') - 1
+ return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+ inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+ inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -168,11 +169,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
+ if CocAction('hasProvider', 'hover')
+   call CocActionAsync('doHover')
+ else
+   call feedkeys('K', 'in')
+ endif
 endfunction
 
 " Highlight the symbol and its references when holding the cursor
@@ -186,11 +187,11 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s)
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+ autocmd!
+  "Setup formatexpr specified filetype(s)
+ autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+ " Update signature help on jump placeholder
+ autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Applying code actions to the selected code block
@@ -226,12 +227,12 @@ omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> to scroll float windows/popups
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+ nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+ nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+ inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+ inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+ vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+ vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
 " Use CTRL-S for selections ranges
@@ -276,9 +277,20 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 :let g:mode_mouse_on = 1
 "let g:tmux_navigator_no_mappings = 1
 :let g:tmux_navigator_save_on_switch = 1
-nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
-nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
-nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
-nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
-nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+
+noremap <silent> {Left-Mapping} :<C-U>TmuxNavigateLeft<cr>
+noremap <silent> {Down-Mapping} :<C-U>TmuxNavigateDown<cr>
+noremap <silent> {Up-Mapping} :<C-U>TmuxNavigateUp<cr>
+noremap <silent> {Right-Mapping} :<C-U>TmuxNavigateRight<cr>
+noremap <silent> {Previous-Mapping} :<C-U>TmuxNavigatePrevious<cr>
 "======= tmux setting end===========================================
+"======= vimspector setting start===========================================
+let g:vimspector_enable_mappings = 'HUMAN'
+
+nmap <leader>dd :call vimspector#Launch()<CR>
+nmap <leader>dx :vimspectorReset<CR>
+nmap <leader>de :vimspectorEval
+nmap <leader>dw :vimspectorWatch
+nmap <leader>do :vimspectorShowOutput
+let g:vimspector_base_dir = expand('/Users/toto/.vimspector.json')
+"======= vimspector setting end===========================================
