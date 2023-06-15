@@ -28,6 +28,8 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
+" :terminla 后使用esc 替代 C-w N (大写)
+tnoremap <Esc> <C-w>N
 "======= keymap end ===================================================
 "======== vim setting start ===========================================
 colorscheme default
@@ -140,7 +142,7 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                             "\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+                             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
  let col = col('.') - 1
@@ -252,7 +254,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics
@@ -288,9 +290,15 @@ noremap <silent> {Previous-Mapping} :<C-U>TmuxNavigatePrevious<cr>
 let g:vimspector_enable_mappings = 'HUMAN'
 
 nmap <leader>dd :call vimspector#Launch()<CR>
-nmap <leader>dx :vimspectorReset<CR>
-nmap <leader>de :vimspectorEval
-nmap <leader>dw :vimspectorWatch
-nmap <leader>do :vimspectorShowOutput
-let g:vimspector_base_dir = expand('/Users/toto/.vimspector.json')
+nmap <leader>dx :VimspectorReset<CR>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
+
 "======= vimspector setting end===========================================
+
+"======= airline setting start===========================================
+let g:airline#extensions#tabline#enabled = 1
+nmap <C-dj> <Plug>VimspectorDownFrame
+nmap <C-dk> <Plug>VimspectorUpFrame
+"======= airline setting end===========================================
