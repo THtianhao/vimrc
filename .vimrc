@@ -61,6 +61,8 @@ set ignorecase
 " 搜索的时候进行Tab进行提示
 set wildmenu
 set wildmode=longest:list,full
+" 在切换缓冲区的时候自动保存
+set autowriteall
 "======== vim setting end ============================================
 
 "======= nerdTree settting start =====================================
