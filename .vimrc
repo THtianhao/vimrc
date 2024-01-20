@@ -13,6 +13,7 @@ Plug 'christoomey/vim-tmux-navigator' " ctrl-hjkl move between splites
 Plug 'dense-analysis/ale' " grammer error detach
 Plug 'Chiel92/vim-autoformat' " save and format file
 Plug 'puremourning/vimspector'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 "======= keymap start =================================================
