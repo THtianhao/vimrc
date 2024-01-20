@@ -67,3 +67,4 @@ $SUDO sed -i 's/^#ClientAliveCountMax 3/ClientAliveCountMax 0/' /etc/ssh/sshd_co
 # 重启SSH服务以应用更改
 $SUDO service ssh restart
 echo "ssh超时设置成功"
+cd
