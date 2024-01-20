@@ -2,6 +2,14 @@
 
 sudo apt-get update
 sudo apt-get install git tmux unzip wget -y
+echo "安装npm nodejs"
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+echo "安装npm nodejs完成"
+echo "安装git lfs"
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+sudo apt-get install git-lfs -y
+echo "安装git lfs 完成"
 
 # 安装 Oh My Zsh
 echo "y" | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
@@ -28,10 +36,7 @@ echo "set -g mode-mouse on" >> ~/.tmux.conf
 echo "tmux 配置已更新。"
 tmux source-file ~/.tmux.conf
 
-echo "安装git lfs"
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-sudo apt-get install git-lfs -y
-echo "安装git lfs 完成"
+
 
 echo "vim 插件安装"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
