@@ -46,6 +46,7 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/
 bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
 rm -rf ~/miniconda3/miniconda.sh
 ~/miniconda3/bin/conda init zsh
+source ~/.zshrc
 echo "conda 安装完成"
 
 echo "设置ssh超时时间"
@@ -56,7 +57,7 @@ fi
 
 # 修改sshd_config文件，禁用自动断开连接
 $SUDO sed -i 's/^#ClientAliveInterval 0/ClientAliveInterval 300/' /etc/ssh/sshd_config
-$SUDO sed -i 's/^#ClientAliveCountMax 3/ClientAliveCountMax 3/' /etc/ssh/sshd_config
+$SUDO sed -i 's/^#ClientAliveCountMax 3/ClientAliveCountMax 0/' /etc/ssh/sshd_config
 
 # 重启SSH服务以应用更改
 $SUDO service ssh restart
