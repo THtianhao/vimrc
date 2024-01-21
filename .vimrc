@@ -38,7 +38,6 @@ tnoremap <Esc> <C-w>N
 "======== vim setting start ===========================================
 colorscheme default
 "在插入模式下可以删除回车和之前输入的字符
-set paste
 set backspace=indent,eol,start
 set t_Co=256
 set autoindent
@@ -312,4 +311,17 @@ let g:airline#extensions#tabline#enabled = 1
 "======= autoformat setting start===========================================
 "保存时自动格式化vim debugg toolau BufWrite * :Autoformat
 "======= autoformat setting end===========================================
+
+"======= ultisnips setting start===========================================
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+"======= ultisnips setting end===========================================
+
 source ~/vimrc/vimrc_go
