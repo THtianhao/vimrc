@@ -5,6 +5,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a useful tool for shell
 Plug 'ryanoasis/vim-devicons'       " add beautiful icons besides files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " enhance devicons
 Plug 'preservim/nerdcommenter' " comment plugin
@@ -12,8 +13,10 @@ Plug 'easymotion/vim-easymotion' " leader leader w
 Plug 'christoomey/vim-tmux-navigator' " ctrl-hjkl move between splites
 Plug 'dense-analysis/ale' " grammer error detach
 Plug 'Chiel92/vim-autoformat' " save and format file
-Plug 'puremourning/vimspector'
+Plug 'puremourning/vimspector' " vim debugg tool
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'AndrewRadev/splitjoin.vim' " go struct splite and join with gS or gJ on normal mode
+Plug 'SirVer/ultisnips' " sinppet, utils for quick generate code by several word
 call plug#end()
 
 "======= keymap start =================================================
@@ -35,6 +38,7 @@ tnoremap <Esc> <C-w>N
 "======== vim setting start ===========================================
 colorscheme default
 "在插入模式下可以删除回车和之前输入的字符
+set paste
 set backspace=indent,eol,start
 set t_Co=256
 set autoindent
@@ -306,6 +310,6 @@ let g:airline#extensions#tabline#enabled = 1
 "======= airline setting end===========================================
 
 "======= autoformat setting start===========================================
-"保存时自动格式化
-au BufWrite * :Autoformat
+"保存时自动格式化vim debugg toolau BufWrite * :Autoformat
 "======= autoformat setting end===========================================
+source ~/vimrc/vimrc_go

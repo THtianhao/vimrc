@@ -10,7 +10,10 @@ echo "安装git lfs"
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 sudo apt-get install git-lfs -y
 echo "安装git lfs 完成"
-
+echo "安装fzf"
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+echo "安装fzf 完成"
 # 安装 Oh My Zsh
 echo "y" | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
 # 切换 Zsh 主题为 ys
