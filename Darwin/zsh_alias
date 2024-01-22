@@ -1,0 +1,12 @@
+alias jdk7='export JAVA_HOME=$JAVA_7_HOME'
+alias jdk8='export JAVA_HOME=$JAVA_8_HOME'
+alias jdk9='export JAVA_HOME=$JAVA_9_HOME'
+alias jdk11='export JAVA_HOME=$JAVA_11_HOME'
+
+alias ip='ifconfig | grep 10.6'
+alias zshrc='vi ~/.zshrc'
+alias vimrc='vi ~/.vimrc'
+alias gpush="git add . && git commit -m 'Auto update' && git push"
+alias act="source venv/bin/activate"
+alias cda="conda deactivate"
+

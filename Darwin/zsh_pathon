@@ -1,0 +1,4 @@
+#python
+export PYTHONDONTWRITEBYTECODE=1 # python禁止生成缓存文件
+export PATH=/Library/Frameworks/Python.framework/Versions/3.10/bin:$PATH
+

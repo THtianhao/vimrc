@@ -1,0 +1,8 @@
+#vim
+export PATH=$PATH:/usr/local/opt/vim
+#llvm
+export PATH=$PATH:/usr/local/opt/llvm/bin
+
+#nodejs
+export NVM_DIR=$HOME/.nvm
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
