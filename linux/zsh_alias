@@ -1,0 +1,6 @@
+alias zshrc='vi ~/.zshrc'
+alias vimrc='vi ~/.vimrc'
+alias gpush="git add . && git commit -m 'Auto update' && git push"
+alias act="source venv/bin/activate"
+alias cda="conda deactivate"
+

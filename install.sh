@@ -16,12 +16,10 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 echo "安装fzf 完成"
 # 安装 Oh My Zsh
 echo "y" | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
-# 切换 Zsh 主题为 ys
-sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="ys"/' ~/.zshrc
-echo 'alias gpush="git add . && git commit -m '\''Auto update'\'' && git push"' >> ~/.zshrc
-echo 'alias de="deactivate"' >> ~/.zshrc
-echo 'alias cda="conda deactivate"' >> ~/.zshrc
-echo 'alias act="source ./venv/bin/activate"' >> ~/.zshrc
+
+if [ -f ~/.zshrc ]; then
+    rm ~/.zshrc
+ln -s ~/vimrc/.zshrc ~/.zhsrc
 
 # 使主题更改生效
 source ~/.zshrc
@@ -44,7 +42,11 @@ tmux source-file ~/.tmux.conf
 echo "vim 插件安装"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-cp ~/vimrc/.vimrc ~/.vimrc
+
+if [ -f ~/.vimrc ]; then
+    rm ~/.vimrc
+ln -s ~/vimrc/.vimrc ~/.vimrc
+
 vim +PlugInstall +GoInstallBinaries +qall
 echo "vim插件安装完成"
 
