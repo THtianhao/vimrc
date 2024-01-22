@@ -1,4 +1,27 @@
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+" 主动设置go的高亮
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_build_constraints = 1
+
+" 快速切换GoAlternate 的文件，与测试文件之间的切换
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+" 查看方法的信息,同GoInfo
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+" 自动查看方法信息,并设置更新时间100ms ,同GoInfo
+let g:go_auto_type_info = 1
+set updatetime=100
+
+" 移动到光标自动高亮同GoSameIds
+let g:go_auto_sameids = 1
+
 

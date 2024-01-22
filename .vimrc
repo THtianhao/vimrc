@@ -17,6 +17,7 @@ Plug 'puremourning/vimspector' " vim debugg tool
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'AndrewRadev/splitjoin.vim' " go struct splite and join with gS or gJ on normal mode
 Plug 'SirVer/ultisnips' " sinppet, utils for quick generate code by several word
+Plug 'fatih/molokai' " color scheme
 call plug#end()
 
 "======= keymap start =================================================
