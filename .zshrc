@@ -62,10 +62,6 @@ export PATH=$PATH:/usr/local/opt/llvm/bin
 export NVM_DIR="/Users/toto/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
 #openai
 export OPENAI_API_KEY="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"
 
@@ -179,3 +175,5 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border' # 最新的历史记录排到最上，窗口大小等
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
