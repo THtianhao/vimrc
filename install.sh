@@ -45,7 +45,7 @@ echo "vim 插件安装"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 cp ~/vimrc/.vimrc ~/.vimrc
-vim +PlugInstall +qall
+vim +PlugInstall +GoInstallBinaries +qall
 echo "vim插件安装完成"
 
 echo "conda 安装"
