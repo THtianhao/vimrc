@@ -5,7 +5,7 @@ if [ ! -d "$user_directory" ]; then
     echo "错误：目录不存在或不可访问。"
     exit 1
 fi
-sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zsh
+sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zshrc
 echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
 
 sudo apt-get update
@@ -29,7 +29,7 @@ if [ -d ~/.oh-my-zsh ]; then
     echo "Oh My Zsh 已安装，跳过安装步骤"
 else
     # 安装 Oh My Zsh
-    echo "y" | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
+    sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
 fi
 
 echo "ln zsh"
