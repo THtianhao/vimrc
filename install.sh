@@ -8,6 +8,10 @@ fi
 sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zshrc
 echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
 
+if [ "$(basename "$SHELL")" != "zsh" ]; then
+  exec zsh <<< "0"
+fi
+
 sudo apt-get update
 sudo apt-get install git tmux unzip wget -y
 git config --global user.email "tototianhao@gmail.com"
