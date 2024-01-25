@@ -1,5 +1,6 @@
 #!/bin/bash
-read -p "请输入用户目录: " user_directory
+echo -n "请输入用户目录: "
+read user_directory
 if [ ! -d "$user_directory" ]; then
     echo "错误：目录不存在或不可访问。"
     exit 1
