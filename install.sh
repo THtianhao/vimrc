@@ -33,6 +33,7 @@ else
     sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
 fi
 echo "安装oh my zsh 完成"
+chsh -s $(which zsh)
 
 echo "外链 .zshrc"
 if [ -f ~/.zshrc ]; then
