@@ -8,10 +8,13 @@ fi
 sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zshrc
 echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
 
-echo "判断当前shell"
-if [ "$(basename "$SHELL")" != "zsh" ]; then
-    echo "当前shell不是zsh切换到zsh"
-    exec zsh <<< "0"
+current_shell=$(basename "$SHELL")
+echo " 检查当前 Shell 是否是 Zsh"
+if [ "$current_shell" != "zsh" ]; then
+    echo "切换到 Zsh..."
+    exec zsh
+else
+    echo "已经是 Zsh，无需切换。"
 fi
 
 sudo apt-get update
