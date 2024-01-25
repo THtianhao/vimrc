@@ -2,6 +2,8 @@
 
 sudo apt-get update
 sudo apt-get install git tmux unzip wget -y
+git config --global user.email "tototianhao@gmail.com"
+git config --global user.name "toto"
 echo "安装npm nodejs"
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
@@ -12,14 +14,22 @@ sudo apt-get install git-lfs -y
 echo "安装git lfs 完成"
 echo "安装fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-echo "安装fzf 完成"
-# 安装 Oh My Zsh
-echo "y" | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
+~/.fzf/install --all
 
+echo "安装fzf 完成"
+if [ -d ~/.oh-my-zsh ]; then
+    echo "Oh My Zsh 已安装，跳过安装步骤"
+else
+    # 安装 Oh My Zsh
+    echo "y" | sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
+fi
+
+echo "ln zsh"
 if [ -f ~/.zshrc ]; then
     rm ~/.zshrc
-ln -s ~/vimrc/.zshrc ~/.zhsrc
+    echo ".zshrc 文件已存在，删除"
+fi
+ln -s ~/vimrc/.zshrc ~/.zshrc
 
 # 使主题更改生效
 source ~/.zshrc
@@ -43,8 +53,11 @@ echo "vim 插件安装"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+echo "ln .vimrc"
 if [ -f ~/.vimrc ]; then
     rm ~/.vimrc
+    echo ".vimrc 已存在删除"
+fi
 ln -s ~/vimrc/.vimrc ~/.vimrc
 
 vim +PlugInstall +GoInstallBinaries +qall
@@ -72,4 +85,3 @@ $SUDO sed -i 's/^#ClientAliveCountMax 3/ClientAliveCountMax 0/' /etc/ssh/sshd_co
 # 重启SSH服务以应用更改
 $SUDO service ssh restart
 echo "ssh超时设置成功"
-cd
