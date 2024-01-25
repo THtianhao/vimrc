@@ -59,13 +59,6 @@ echo "配置tmux"
 # Add mouse mode configuration to ~/.tmux.conf
 echo "# 鼠标模式开启，用于支持鼠标滚轮" >> ~/.tmux.conf
 echo "set -g mouse on" >> ~/.tmux.conf
-echo "" >> ~/.tmux.conf
-echo "# 鼠标滚轮在 copy 模式下也能使用" >> ~/.tmux.conf
-echo "set -g mouse-select-pane on" >> ~/.tmux.conf
-echo "set -g mouse-select-window on" >> ~/.tmux.conf
-echo "set -g mode-mouse on" >> ~/.tmux.conf
-
-echo "tmux 配置已更新。"
 tmux source-file ~/.tmux.conf
 
 
