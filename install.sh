@@ -1,13 +1,4 @@
 #!/bin/bash
-echo -n "请输入用户目录: "
-read user_directory
-if [ ! -d "$user_directory" ]; then
-    echo "错误：目录不存在或不可访问。"
-    exit 1
-fi
-sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zshrc
-echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
-
 current_shell=$(basename "$SHELL")
 echo " 检查当前 Shell 是否是 Zsh"
 if [ "$current_shell" != "zsh" ]; then
@@ -16,6 +7,15 @@ if [ "$current_shell" != "zsh" ]; then
 else
     echo "已经是 Zsh，无需切换。"
 fi
+
+echo -n "请输入用户目录: "
+read user_directory
+if [ ! -d "$user_directory" ]; then
+    echo "错误：目录不存在或不可访问。"
+    exit 1
+fi
+sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zshrc
+echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
 
 sudo apt-get update
 sudo apt-get install git tmux unzip wget -y
