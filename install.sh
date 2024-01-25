@@ -14,7 +14,7 @@ sudo apt-get install git-lfs -y
 echo "安装git lfs 完成"
 echo "安装fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all
+~/.fzf/install --all <<< 'yyy'
 
 echo "安装fzf 完成"
 if [ -d ~/.oh-my-zsh ]; then
