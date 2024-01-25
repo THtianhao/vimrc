@@ -3,6 +3,7 @@ current_shell=$(basename "$SHELL")
 echo " 检查当前 Shell 是否是 Zsh"
 if [ "$current_shell" != "zsh" ]; then
     echo "切换到 Zsh..."
+    chsh -s $(which zsh)
     exec zsh
 else
     echo "已经是 Zsh，无需切换。"
@@ -42,7 +43,6 @@ else
     sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
 fi
 echo "安装oh my zsh 完成"
-chsh -s $(which zsh)
 
 echo "外链 .zshrc"
 if [ -f ~/.zshrc ]; then
