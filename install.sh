@@ -1,4 +1,11 @@
 #!/bin/bash
+read -p "请输入用户目录: " user_directory
+if [ ! -d "$user_directory" ]; then
+    echo "错误：目录不存在或不可访问。"
+    exit 1
+fi
+sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zsh
+echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
 
 sudo apt-get update
 sudo apt-get install git tmux unzip wget -y
