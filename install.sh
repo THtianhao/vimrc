@@ -4,8 +4,7 @@ echo " 检查当前 Shell 是否是 Zsh"
 if [ "$current_shell" != "zsh" ]; then
     echo "切换到 Zsh..."
     chsh -s $(which zsh)
-    exec exit
-    exec zsh
+    exit 1
 else
     echo "已经是 Zsh，无需切换。"
 fi
@@ -14,7 +13,7 @@ echo -n "请输入用户目录: "
 read user_directory
 if [ ! -d "$user_directory" ]; then
     echo "错误：目录不存在或不可访问。"
-    exit 1
+    return
 fi
 sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zshrc
 echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
