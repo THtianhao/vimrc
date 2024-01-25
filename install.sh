@@ -25,19 +25,22 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all <<< 'yyy'
 
 echo "安装fzf 完成"
+echo "安装oh my zsh"
 if [ -d ~/.oh-my-zsh ]; then
     echo "Oh My Zsh 已安装，跳过安装步骤"
 else
     # 安装 Oh My Zsh
     sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
 fi
+echo "安装oh my zsh 完成"
 
-echo "ln zsh"
+echo "外链 .zshrc"
 if [ -f ~/.zshrc ]; then
     rm ~/.zshrc
     echo ".zshrc 文件已存在，删除"
 fi
 ln -s ~/vimrc/.zshrc ~/.zshrc
+echo "外链 .zshrc 完成"
 
 # 使主题更改生效
 source ~/.zshrc
