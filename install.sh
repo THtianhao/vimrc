@@ -17,6 +17,7 @@ if [ ! -d "$user_directory" ]; then
 fi
 sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zshrc
 echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
+export HOME=$user_directory
 
 sudo apt-get update
 sudo apt-get install git tmux unzip wget -y
@@ -50,6 +51,7 @@ if [ -f ~/.zshrc ]; then
     echo ".zshrc 文件已存在，删除"
 fi
 ln -s ~/vimrc/.zshrc ~/.zshrc
+source ~/.zhsrc
 echo "外链 .zshrc 完成"
 
 # 使主题更改生效
