@@ -26,6 +26,8 @@ git config --global user.name "toto"
 echo "安装npm nodejs"
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
+sudo npm install -g n
+sudo n 14.21.0
 echo "安装npm nodejs完成"
 echo "安装git lfs"
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
