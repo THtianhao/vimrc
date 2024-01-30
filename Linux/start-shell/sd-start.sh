@@ -2,7 +2,7 @@
 
 cd $HOME/project/stable-diffusion-webui
 
-pid=$(pgrep -f 'python -B webui.py --listen')
+pid=$(pgrep -f 'bash webui.sh --listen')
 
 if [ -n "$pid" ]; then
     echo "找到进程ID：$pid"
@@ -14,6 +14,6 @@ else
 fi
 cda
 conda activate sd
-nohup python -B webui.py --listen --port 9999>> ./log &
+nohup bash webui.sh --listen --api --no-half --port 9999>> ./log &
 tail -f log
 
