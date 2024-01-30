@@ -13,7 +13,7 @@ else
     echo "没有找到带有的进程"
 fi
 cda
-conda activate sd
+act
 nohup bash webui.sh --listen --api --no-half --port 9999>> ./log &
 tail -f log
 
