@@ -3,4 +3,5 @@ alias vimrc='vi ~/.vimrc'
 alias gpush="git add . && git commit -m 'Auto update' && git push"
 alias act="source venv/bin/activate"
 alias cda="conda deactivate"
+alias comfy_start='. ~/vimrc/Linux/start-shell/comfy-start.sh'
 
