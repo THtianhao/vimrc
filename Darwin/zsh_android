@@ -1,5 +1,6 @@
 #android
-export SUB_HOME=/Volumes/Samsung_T5
+#export SUB_HOME=/Volumes/Samsung_T5
+export SUB_HOME=/Users/toto/Library/Android/sdk
 export ANDROID_NDK_R21=$HOME/Library/Android/sdk/ndk/21.4.7075529
 export PATH=$PATH:$ANDROID_NDK_R21
 #sub dir

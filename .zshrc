@@ -25,6 +25,7 @@ export USE_CCACHE=1
 [ -f $HOME/vimrc/$(uname)/zsh_mysql ] && source $HOME/vimrc/$(uname)/zsh_mysql
 [ -f $HOME/vimrc/$(uname)/zsh_alias ] && source $HOME/vimrc/$(uname)/zsh_alias
 [ -f $HOME/vimrc/$(uname)/zsh_cuda ] && source $HOME/vimrc/$(uname)/zsh_cuda
+[ -f $HOME/vimrc/$(uname)/zsh_web3 ] && source $HOME/vimrc/$(uname)/zsh_web3
 
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="ys"
@@ -87,14 +88,14 @@ export LANG=en_US.UTF-8
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('~/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "~/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "~/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/toto/miniconda3/bin:$PATH"
+        export PATH="/opt/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
