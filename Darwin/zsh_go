@@ -2,4 +2,5 @@
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 export GO111MODULE='on'
+export GOPRIVATE=codeup.aliyun.com/611a32be57e7cd986dfa17d1/*
 

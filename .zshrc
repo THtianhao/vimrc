@@ -6,6 +6,7 @@ export HOME_PATH
 if [[ "$(uname)" == "Darwin" ]]; then
   # Mac系统
   export HOME_PATH="/Users/toto"
+  export HOMEBREW_NO_AUTO_UPDATE=true
 else
   # 其他系统
   export HOME_PATH="/home/toto"
