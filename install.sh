@@ -1,4 +1,8 @@
 #!/bin/bash
+passwd
+toto
+toto
+sudo apt-get install zsh -y
 current_shell=$(basename "$SHELL")
 echo " 检查当前 Shell 是否是 Zsh"
 if [ "$current_shell" != "zsh" ]; then
@@ -27,7 +31,7 @@ echo "安装npm nodejs"
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo npm install -g n
-sudo n 14.21.0
+sudo n 23.2.0
 echo "安装npm nodejs完成"
 echo "安装git lfs"
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash

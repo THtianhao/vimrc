@@ -4,3 +4,8 @@ export PATH=$GOPATH/bin:$PATH
 export GO111MODULE='on'
 export GOPRIVATE=codeup.aliyun.com/611a32be57e7cd986dfa17d1/*
 
+#fpath+=($HOME/vimrc/Darwin/scripts)
+#autoload -Uz _kratos
+#compdef _kratos kratos
+#autoload -U compinit && compinit
+
