@@ -4,7 +4,6 @@ if [[ "$(uname -s)" == "Linux" ]]; then
     current_user=$(whoami)
     sudo passwd $current_user
     echo "请输入当前用户的新密码："
-    passwd
 else
     echo "当前系统不是 Linux，无法修改密码。"
 fi
