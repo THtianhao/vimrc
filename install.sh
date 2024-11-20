@@ -1,7 +1,13 @@
 #!/bin/bash
-passwd
-toto
-toto
+if [[ "$(uname -s)" == "Linux" ]]; then
+    echo "当前系统是 Linux，准备修改密码..."
+
+    # 修改当前用户的密码
+    echo "请输入当前用户的新密码："
+    passwd
+else
+    echo "当前系统不是 Linux，无法修改密码。"
+fi
 sudo apt-get install zsh -y
 current_shell=$(basename "$SHELL")
 echo " 检查当前 Shell 是否是 Zsh"
