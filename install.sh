@@ -1,8 +1,8 @@
 #!/bin/bash
 if [[ "$(uname -s)" == "Linux" ]]; then
-    echo "当前系统是 Linux，准备修改密码..."
-
-    # 修改当前用户的密码
+        echo "当前系统是 Linux，准备修改密码..."
+    current_user=$(whoami)
+    sudo passwd $current_user
     echo "请输入当前用户的新密码："
     passwd
 else
