@@ -7,6 +7,7 @@ if [[ "$(uname -s)" == "Linux" ]]; then
 else
     echo "当前系统不是 Linux，无法修改密码。"
 fi
+
 sudo apt-get install zsh -y
 current_shell=$(basename "$SHELL")
 echo " 检查当前 Shell 是否是 Zsh"
@@ -47,6 +48,7 @@ echo \
 sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo usermod -aG docker $(whoami)
 
 echo "安装npm nodejs"
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
