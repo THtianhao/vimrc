@@ -14,7 +14,6 @@ echo " 检查当前 Shell 是否是 Zsh"
 if [ "$current_shell" != "zsh" ]; then
     echo "切换到 Zsh..."
     chsh -s $(which zsh)
-    exit 1
 else
     echo "已经是 Zsh，无需切换。"
 fi
