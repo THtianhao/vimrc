@@ -5,7 +5,6 @@ if [[ "$(uname -s)" == "Linux" ]]; then
     # 修改当前用户的密码
     echo "请输入当前用户的新密码："
     passwd
-    exit 1
 else
     echo "当前系统不是 Linux，无法修改密码。"
 fi
@@ -15,6 +14,7 @@ echo " 检查当前 Shell 是否是 Zsh"
 if [ "$current_shell" != "zsh" ]; then
     echo "切换到 Zsh..."
     sudo chsh -s $(which zsh)
+    exit 1
 else
     echo "已经是 Zsh，无需切换。"
 fi
