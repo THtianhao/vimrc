@@ -1,4 +1,5 @@
 #!/bin/bash
+
 current_shell=$(basename "$SHELL")
 
 # 检查当前系统是否是 Linux 并进行操作
@@ -12,8 +13,13 @@ if [[ "$(uname -s)" == "Linux" ]]; then
         sudo passwd "$current_user"
 
         # 安装并切换到 Zsh
-        echo "安装 Zsh..."
-        sudo apt-get install zsh -y
+        if ! command -v zsh &>/dev/null; then
+            echo "安装 Zsh..."
+            sudo apt-get install zsh -y
+        else
+            echo "Zsh 已安装，跳过安装步骤"
+        fi
+
         echo "切换到 Zsh..."
         chsh -s "$(which zsh)"
         echo "请重新登录以应用 Zsh 设置"
@@ -35,113 +41,136 @@ sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zshrc
 echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
 export HOME=$user_directory
 
-sudo apt-get update
+echo -n "请输入新的主机名: "
+read new_hostname
+
+if [ -z "$new_hostname" ]; then
+    echo "主机名不能为空，请重新运行脚本并提供有效的主机名。"
+    exit 1
+fi
+
+# 设置主机名立即生效
+sudo hostnamectl set-hostname "$new_hostname"
+echo "主机名已更改为 $new_hostname 并立即生效"
+
+# 更新 /etc/hosts 文件
+if ! grep -q "127.0.0.1 $new_hostname" /etc/hosts; then
+    echo "更新 /etc/hosts 文件..."
+    sudo sed -i "s/127.0.0.1.*/127.0.0.1 localhost $new_hostname/" /etc/hosts
+    echo "127.0.0.1 $new_hostname" | sudo tee -a /etc/hosts > /dev/null
+fi
+
+echo "主机名配置已完成！"
+
+# 安装基础工具
 sudo apt-get install git tmux unzip wget -y
 git config --global user.email "tototianhao@gmail.com"
 git config --global user.name "toto"
 
-echo "安装docker"
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-
-if dpkg -l | grep -q docker; then
-    echo "Docker 已安装,跳过"
-else
-    echo "Docker 未安装，开始安装"
+# 安装 Docker
+if ! command -v docker &>/dev/null; then
+    echo "安装 Docker..."
+    sudo apt-get install ca-certificates curl -y
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo apt-get update
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
     sudo usermod -aG docker $(whoami)
-    newgrp docker
-    exit 1
+    exec newgrp docker
     echo "Docker 安装完成"
+else
+    echo "Docker 已安装，跳过"
 fi
 
-echo "安装npm nodejs"
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo npm install -g n
-sudo n 23.2.0
-echo "安装npm nodejs完成"
-echo "安装git lfs"
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-sudo apt-get install git-lfs -y
-echo "安装git lfs 完成"
-echo "安装fzf"
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all <<< 'yyy'
+# 安装 Node.js 和 npm
+if ! command -v node &>/dev/null || ! command -v npm &>/dev/null; then
+    echo "安装 Node.js 和 npm..."
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    sudo npm install -g n
+    sudo n 23.2.0
+    echo "Node.js 和 npm 安装完成"
+else
+    echo "Node.js 和 npm 已安装，跳过"
+fi
 
-echo "安装fzf 完成"
-echo "安装oh my zsh"
+# 安装 git-lfs
+if ! git lfs &>/dev/null; then
+    echo "安装 git-lfs..."
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+    sudo apt-get install git-lfs -y
+    echo "git-lfs 安装完成"
+else
+    echo "git-lfs 已安装，跳过"
+fi
+
+# 安装 fzf
+if [ ! -d ~/.fzf ]; then
+    echo "安装 fzf..."
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install --all <<< 'yyy'
+    echo "fzf 安装完成"
+else
+    echo "fzf 已安装，跳过"
+fi
+
+# 安装 Oh My Zsh
 if [ -d ~/.oh-my-zsh ]; then
     echo "Oh My Zsh 已安装，跳过安装步骤"
 else
-    # 安装 Oh My Zsh
+    echo "安装 Oh My Zsh..."
     sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" <<< "y"
+    echo "Oh My Zsh 安装完成"
 fi
-echo "安装oh my zsh 完成"
 
-echo "外链 .zshrc"
+# 外链 .zshrc
 if [ -f ~/.zshrc ]; then
     rm ~/.zshrc
     echo ".zshrc 文件已存在，删除"
 fi
 ln -s ~/vimrc/.zshrc ~/.zshrc
-source ~/.zhsrc
+source ~/.zshrc
 echo "外链 .zshrc 完成"
 
-# 使主题更改生效
-source ~/.zshrc
-
-echo "配置tmux"
-# Add mouse mode configuration to ~/.tmux.conf
-echo "# 鼠标模式开启，用于支持鼠标滚轮" >> ~/.tmux.conf
-echo "set -g mouse on" >> ~/.tmux.conf
-tmux source-file ~/.tmux.conf
-
-
-
-echo "vim 插件安装"
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-echo "ln .vimrc"
-if [ -f ~/.vimrc ]; then
-    rm ~/.vimrc
-    echo ".vimrc 已存在删除"
+# 配置 tmux
+if ! grep -q "set -g mouse on" ~/.tmux.conf; then
+    echo "# 鼠标模式开启，用于支持鼠标滚轮" >> ~/.tmux.conf
+    echo "set -g mouse on" >> ~/.tmux.conf
+    tmux source-file ~/.tmux.conf
 fi
-ln -s ~/vimrc/.vimrc ~/.vimrc
 
-vim +PlugInstall +GoInstallBinaries +qall
-echo "vim插件安装完成"
+# 安装 vim 插件
+if [ ! -f ~/.vim/autoload/plug.vim ]; then
+    echo "安装 vim-plug..."
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    vim +PlugInstall +GoInstallBinaries +qall
+    echo "vim 插件安装完成"
+else
+    echo "vim 插件已安装，跳过"
+fi
 
-echo "conda 安装"
-mkdir -p ~/miniconda3
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
-bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-rm -rf ~/miniconda3/miniconda.sh
-~/miniconda3/bin/conda init zsh
-source ~/.zshrc
-echo "conda 安装完成"
+# 安装 Conda
+if [ ! -d ~/miniconda3 ]; then
+    echo "安装 Conda..."
+    mkdir -p ~/miniconda3
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+    bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+    rm -rf ~/miniconda3/miniconda.sh
+    ~/miniconda3/bin/conda init zsh
+    source ~/.zshrc
+    echo "Conda 安装完成"
+else
+    echo "Conda 已安装，跳过"
+fi
 
-echo "设置ssh超时时间"
-# 检查是否是root用户，如果不是，则使用sudo获取权限
+# 设置 SSH 超时时间
 if [ "$EUID" -ne 0 ]; then
     SUDO=sudo
 fi
-
-# 修改sshd_config文件，禁用自动断开连接
 $SUDO sed -i 's/^#ClientAliveInterval 0/ClientAliveInterval 300/' /etc/ssh/sshd_config
 $SUDO sed -i 's/^#ClientAliveCountMax 3/ClientAliveCountMax 0/' /etc/ssh/sshd_config
-
-# 重启SSH服务以应用更改
 $SUDO service ssh restart
-echo "ssh超时设置成功"
+echo "SSH 超时设置成功"
