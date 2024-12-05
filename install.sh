@@ -5,7 +5,7 @@ if [[ "$(uname -s)" == "Linux" ]] && [[ "$current_shell" != "zsh" ]]; then
     sudo passwd $current_user
     echo "请输入当前用户的新密码："
 else
-    echo "当前系统不是 Linux，无法修改密码。"
+    echo "当前系统不是 Linux，或者已经是zsh, 无需要修改密码"
 fi
 
 sudo apt-get install zsh -y
