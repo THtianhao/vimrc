@@ -1,22 +1,28 @@
 #!/bin/bash
-if [[ "$(uname -s)" == "Linux" ]] && [[ "$current_shell" != "zsh" ]]; then
-        echo "当前系统是 Linux，准备修改密码..."
-    current_user=$(whoami)
-    sudo passwd $current_user
-    echo "请输入当前用户的新密码："
-else
-    echo "当前系统不是 Linux，或者已经是zsh, 无需要修改密码"
-fi
-
-sudo apt-get install zsh -y
 current_shell=$(basename "$SHELL")
-echo " 检查当前 Shell 是否是 Zsh"
-if [ "$current_shell" != "zsh" ]; then
-    echo "切换到 Zsh..."
-    chsh -s $(which zsh)
-    exit 1
+
+# 检查当前系统是否是 Linux 并进行操作
+if [[ "$(uname -s)" == "Linux" ]]; then
+    echo "当前系统是 Linux"
+    if [[ "$current_shell" != "zsh" ]]; then
+        echo "当前 Shell 不是 Zsh，准备修改密码并切换到 Zsh..."
+        
+        # 修改当前用户密码
+        current_user=$(whoami)
+        sudo passwd "$current_user"
+
+        # 安装并切换到 Zsh
+        echo "安装 Zsh..."
+        sudo apt-get install zsh -y
+        echo "切换到 Zsh..."
+        chsh -s "$(which zsh)"
+        echo "请重新登录以应用 Zsh 设置"
+        exit 0
+    else
+        echo "当前 Shell 已是 Zsh，无需修改"
+    fi
 else
-    echo "已经是 Zsh，无需切换。"
+    echo "当前系统不是 Linux，无需执行操作"
 fi
 
 echo -n "请输入用户目录: "
@@ -47,9 +53,18 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-sudo usermod -aG docker $(whoami)
-newgrp docker
+if dpkg -l | grep -q docker; then
+    echo "Docker 已安装,跳过"
+else
+    echo "Docker 未安装，开始安装"
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+    sudo usermod -aG docker $(whoami)
+    newgrp docker
+    exit 1
+    echo "Docker 安装完成"
+fi
+
 echo "安装npm nodejs"
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
