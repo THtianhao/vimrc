@@ -8,6 +8,14 @@ if [[ "$(uname -s)" == "Linux" ]]; then
     if [[ "$current_shell" != "zsh" ]]; then
         echo "当前 Shell 不是 Zsh，准备修改密码并切换到 Zsh..."
         
+        echo -n "请输入新的主机名: "
+        read new_hostname
+        if [ -z "$new_hostname" ]; then
+            echo "错误：主机名不能为空"
+            exit 1
+        fi
+        sudo hostnamectl set-hostname "$new_hostname"
+        echo "主机名已更改为 $new_hostname"
         # 修改当前用户密码
         current_user=$(whoami)
         sudo passwd "$current_user"
