@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "$(uname -s)" == "Linux" ]]; then
+if [[ "$(uname -s)" == "Linux" ]] && [[ "$current_shell" != "zsh" ]]; then
         echo "当前系统是 Linux，准备修改密码..."
     current_user=$(whoami)
     sudo passwd $current_user
