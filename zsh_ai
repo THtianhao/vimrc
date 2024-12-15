@@ -8,7 +8,7 @@ export TOKEN_CIVITAI=76c64e52f5f08157e36efb47b65260ee
 civitai_download() {
   local base_url="$1"
   local token="76c64e52f5f08157e36efb47b65260ee"
-  local full_url="${base_url}&token=$CIVITAI_TOKEN"
+  local full_url="${base_url}&token=$TOKEN_CIVITAI"
   wget --content-disposition "$full_url"
 }
 
