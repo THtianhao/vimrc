@@ -3,7 +3,7 @@ export LANGFUSE_SECRET_KEY=sk-lf-a638ac24-8f45-4146-b8c4-32c50d88b7cf
 export LANGFUSE_PUBLIC_KEY=pk-lf-456411fe-2011-4fa5-82df-b399e2791bd4
 export LANGFUSE_HOST=https://us.cloud.langfuse.com
 
-export CIVITAI_TOKEN=76c64e52f5f08157e36efb47b65260ee
+export TOKEN_CIVITAI=76c64e52f5f08157e36efb47b65260ee
 
 civitai_download() {
   local base_url="$1"
