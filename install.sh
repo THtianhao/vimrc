@@ -49,18 +49,6 @@ sed -i "s|^export HOME=.*$|export HOME=$user_directory|" .zshrc
 echo "已成功修改 .zsh 脚本中的 export HOME 行为：export HOME=$user_directory"
 export HOME=$user_directory
 
-echo -n "请输入新的主机名: "
-read new_hostname
-
-if [ -z "$new_hostname" ]; then
-    echo "主机名不能为空，请重新运行脚本并提供有效的主机名。"
-    exit 1
-fi
-
-# 设置主机名立即生效
-sudo hostnamectl set-hostname "$new_hostname"
-echo "主机名已更改为 $new_hostname 并立即生效"
-
 # 更新 /etc/hosts 文件
 if ! grep -q "127.0.0.1 $new_hostname" /etc/hosts; then
     echo "更新 /etc/hosts 文件..."
