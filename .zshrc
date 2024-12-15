@@ -9,7 +9,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
   export HOMEBREW_NO_AUTO_UPDATE=true
 else
   # 其他系统
-  export HOME_PATH="/home/toto"
+  export HOME_PATH="/home/ubuntu"
 fi
 export HOME=$HOME_PATH
 export ZSH=$HOME/.oh-my-zsh
