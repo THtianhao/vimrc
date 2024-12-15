@@ -11,13 +11,23 @@ else
   # 其他系统
   export HOME_PATH="/home/ubuntu"
 fi
+
+add_to_path() {
+    case ":$PATH:" in
+        *":$1:"*) ;;
+        *) PATH="$1:$PATH" ;;
+    esac
+}
+
 export HOME=$HOME_PATH
 export ZSH=$HOME/.oh-my-zsh
-export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-export PATH=/opt/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
 export USE_CCACHE=1
+
+add_to_path "/usr/local/bin"
+add_to_path "$HOME/.local/bin"
+add_to_path "/opt/local/bin"
+add_to_path "/usr/local/sbin"
+
 
 source $HOME/vimrc/zsh_ai
 [ -f $HOME/vimrc/$(uname)/zsh_go ] && source $HOME/vimrc/$(uname)/zsh_go

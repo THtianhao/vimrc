@@ -2,4 +2,7 @@
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 export GO111MODULE='on'
+if [[ ":$PATH:" != *":$GOPATH/bin:"* ]]; then
+    export PATH="$GOPATH/bin:$PATH"
+fi
 
