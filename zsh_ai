@@ -5,7 +5,7 @@ export LANGFUSE_HOST=https://us.cloud.langfuse.com
 
 export CIVITAI_TOKEN=76c64e52f5f08157e36efb47b65260ee
 
-download_model() {
+civitai_download() {
   local base_url="$1"
   local token="76c64e52f5f08157e36efb47b65260ee"
   local full_url="${base_url}&token=$CIVITAI_TOKEN"
