@@ -25,8 +25,10 @@ export USE_CCACHE=1
 
 add_to_path "/usr/local/bin"
 add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.cargo/bin"
 add_to_path "/opt/local/bin"
 add_to_path "/usr/local/sbin"
+add_to_path "/opt/homebrew/opt/llvm/bin"
 
 
 source $HOME/vimrc/zsh_ai

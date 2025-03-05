@@ -11,4 +11,3 @@ civitai_download() {
   local full_url="${base_url}&token=$TOKEN_CIVITAI"
   wget --content-disposition "$full_url"
 }
-
