@@ -4,7 +4,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-emes'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a useful tool for shell
 Plug 'ryanoasis/vim-devicons'       " add beautiful icons besides files
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " enhance devicons
@@ -37,7 +37,11 @@ nnoremap <silent> ]B :blast<CR>
 tnoremap <Esc> <C-w>N
 "======= keymap end ===================================================
 "======== vim setting start ===========================================
-colorscheme default
+colorscheme molokai
+set termguicolors
+set background=dark
+syntax enable
+highlight Visual cterm=NONE ctermbg=238 ctermfg=White
 "在插入模式下可以删除回车和之前输入的字符
 set backspace=indent,eol,start
 set t_Co=256
@@ -312,6 +316,9 @@ let g:airline#extensions#tabline#enabled = 1
 "======= autoformat setting start===========================================
 "保存时自动格式化vim debugg toolau BufWrite * :Autoformat
 "======= autoformat setting end===========================================
+"======= ale setting start===========================================
+let g:ale_linters = {'python': ['ruff']}
+"======= ael setting end===========================================
 
 "======= ultisnips setting start===========================================
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:

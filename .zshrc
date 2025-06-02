@@ -70,3 +70,12 @@ unset __conda_setup
 # <<< conda initialize <<<
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border' # 最新的历史记录排到最上，窗口大小等
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/toto/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/toto/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/toto/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/toto/google-cloud-sdk/completion.zsh.inc'; fi
