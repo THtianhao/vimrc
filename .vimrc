@@ -37,11 +37,15 @@ nnoremap <silent> ]B :blast<CR>
 tnoremap <Esc> <C-w>N
 "======= keymap end ===================================================
 "======== vim setting start ===========================================
-colorscheme molokai
+syntax enable
 set termguicolors
 set background=dark
-syntax enable
+colorscheme molokai
 highlight Visual cterm=NONE ctermbg=238 ctermfg=White
+" 设置lint高亮的亮度，不然会太亮
+"highlight CocHintSign     guifg=#5c6370
+"highlight CocHintFloat    guibg=#1e1e1e
+highlight CocUnusedHighlight guibg=#2e2e2e guifg=#5c6370 ctermbg=237 ctermfg=244
 "在插入模式下可以删除回车和之前输入的字符
 set backspace=indent,eol,start
 set t_Co=256
@@ -90,7 +94,8 @@ set autowriteall
 :let g:NERDTreeShowBookmarks=1
 :let g:NERDTreeShowIgnoredStatus = 1
 " 不显示隐藏文件
-let g:NERDTreeHidden=1
+"let g:NERDTreeHidden=0
+let NERDTreeShowHidden=1
 " 过滤: 所有指定文件和文件夹不显示
 :let NERDTreeIgnore = ['\.pyc$', '\.swp', '\.swo', '\.vscode', '__pycache__']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

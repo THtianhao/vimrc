@@ -9,4 +9,6 @@ alias vimrc='vi ~/.vimrc'
 alias gpush="git add . && git commit -m 'Auto update' && git push"
 alias act="source venv/bin/activate"
 alias cda="conda deactivate"
+alias proxy_on='export http_proxy=http://127.0.0.1:7867; export https_proxy=http://127.0.0.1:7867; echo "🟢 代理已开启"'
+alias proxy_off='unset http_proxy https_proxy; echo "🔴 代理已关闭"'
 
